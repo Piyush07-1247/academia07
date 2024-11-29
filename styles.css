@@ -65,3 +65,31 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+.hidden {
+  display: none;
+}
+
+.icons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.subject-icon {
+  text-align: center;
+  cursor: pointer;
+}
+
+.subject-icon img {
+  width: 100px;
+  height: 100px;
+}
+
+.subject-icon span {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+

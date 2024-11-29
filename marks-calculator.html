@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marks Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="marks-calculator.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Marks Calculator</h1>
+  </header>
+  <main>
+    <div class="input-section">
+      <h2>Enter Number of Subjects</h2>
+      <input type="number" id="num-subjects" placeholder="Number of Subjects" min="1" />
+      <button id="next-step">Next</button>
+    </div>
+    <div id="subjects-section" class="hidden">
+      <h2>Enter Subject Names</h2>
+      <div id="subject-inputs"></div>
+      <button id="generate-icons">Generate Subjects</button>
+    </div>
+    <div id="subjects-icons" class="hidden">
+      <h2>Select a Subject</h2>
+      <div id="icons-container"></div>
+    </div>
+  </main>
+  <footer>
+    <p>Follow me on:</p>
+    <a href="https://instagram.com/yourprofile" target="_blank">Instagram</a> |
+    <a href="https://facebook.com/yourprofile" target="_blank">Facebook</a> |
+    <a href="https://twitter.com/yourprofile" target="_blank">Twitter</a>
+  </footer>
+</body>
+</html>

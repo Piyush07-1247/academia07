@@ -16,7 +16,9 @@ loginForm.addEventListener('submit', (e) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       alert('Login successful!');
-      console.log('User:', userCredential.user);
+      console.log('User :', userCredential.user);
+      // Redirect to another page after successful login
+      window.location.href = 'marks-calculator.html'; // Replace with your desired page
     })
     .catch((error) => {
       alert(error.message);

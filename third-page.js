@@ -7,7 +7,11 @@ const attendanceSummary = document.getElementById('attendance-summary');
 const totalSummary = document.getElementById('total-summary');
 const manageSubjectButton = document.getElementById('manage-subject');
 
-marksForm.addEventListener('submit', (event) => {
+// Firestore setup
+const userId = auth.currentUser.uid; // Get the current user's ID
+const subjectName = new URLSearchParams(window.location.search).get('subject'); // Get the subject name from URL
+
+marksForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   // Get input values
@@ -42,6 +46,32 @@ marksForm.addEventListener('submit', (event) => {
   totalSummary.textContent = `Total Marks: ${total.toFixed(2)} (out of 30)`;
 
   summaryDiv.classList.remove('hidden');
+
+  // Save data to Firestore
+  const userRef = doc(db, "users", userId);
+  const subjectRef = doc(userRef, "subjects", subjectName); // Reference to the specific subject
+
+  await setDoc(subjectRef, {
+    st1Marks: st1,
+    st2Marks: st2,
+    st3Marks: st3,
+    assignmentsMarks: assignmentsTotal,
+    quizzesMarks: quizzesTotal,
+    attendanceMarks: attendanceMarks,
+    totalMarks: total,
+    timestamp: new Date() // Save the timestamp when the data is entered
+  }, { merge: true }); // Use merge: true to avoid overwriting existing data
+
+  // Optionally, you can also store a summary or any additional information here
+  await setDoc(doc(userRef, "subjects_summary", subjectName), {
+    summary: {
+      stTotal: stTotal.toFixed(2),
+      assignmentsTotal: assignmentsTotal,
+      quizzesTotal: quizzesTotal,
+      attendanceMarks: attendanceMarks,
+      total: total.toFixed(2)
+    }
+  }, { merge: true });
 });
 
 // Navigate to the fourth page

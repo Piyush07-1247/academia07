@@ -8,13 +8,22 @@ const iconsContainer = document.getElementById('icons-container');
 
 let subjects = [];
 
-// Step 1: Handle Number of Subjects Input
-nextStepButton.addEventListener('click', () => {
+// Step 1: Handle Number of Subjects Input and Save to Firestore
+nextStepButton.addEventListener('click', async () => {
   const numSubjects = parseInt(numSubjectsInput.value);
   if (isNaN(numSubjects) || numSubjects < 1) {
     alert('Please enter a valid number of subjects.');
     return;
   }
+
+  const userId = auth.currentUser.uid; // Get the current user's ID
+  const userRef = doc(db, "users", userId);
+
+  // Save the number of subjects to Firestore
+  await setDoc(userRef, {
+    numSubjects: numSubjects
+  }, { merge: true });
+
   // Create inputs for subject names
   subjectInputsContainer.innerHTML = '';
   for (let i = 0; i < numSubjects; i++) {
@@ -24,17 +33,29 @@ nextStepButton.addEventListener('click', () => {
     input.required = true;
     subjectInputsContainer.appendChild(input);
   }
+
   subjectsSection.classList.remove('hidden');
 });
 
-// Step 2: Generate Subject Icons
-generateIconsButton.addEventListener('click', () => {
+// Step 2: Generate Subject Icons and Save Subject Names to Firestore
+generateIconsButton.addEventListener('click', async () => {
   const inputs = subjectInputsContainer.querySelectorAll('input');
   subjects = Array.from(inputs).map(input => input.value.trim());
   if (subjects.some(subject => subject === '')) {
     alert('Please enter all subject names.');
     return;
   }
+
+  const userId = auth.currentUser.uid; // Get the current user's ID
+  const userRef = doc(db, "users", userId);
+
+  // Save the subjects to Firestore (each subject as a document in a subcollection)
+  const subjectsRef = collection(userRef, "subjects");
+  for (const subject of subjects) {
+    const subjectRef = doc(subjectsRef); // Auto-generate document ID
+    await setDoc(subjectRef, { name: subject }); // Save the subject name
+  }
+
   // Create icons for subjects
   iconsContainer.innerHTML = '';
   subjects.forEach(subject => {
@@ -49,5 +70,6 @@ generateIconsButton.addEventListener('click', () => {
     });
     iconsContainer.appendChild(div);
   });
+
   subjectsIconsSection.classList.remove('hidden');
 });

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subject Details</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="third-page.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Subject Details</h1>
+  </header>
+  <main>
+    <div class="form-section">
+      <h2>Enter Details for the Subject</h2>
+      <form id="marks-form">
+        <label for="st1-marks">ST1 Marks (out of 30):</label>
+        <input type="number" id="st1-marks" min="0" max="30" required>
+
+        <label for="st2-marks">ST2 Marks (out of 30):</label>
+        <input type="number" id="st2-marks" min="0" max="30" required>
+
+        <label for="st3-marks">ST3 Marks (out of 40):</label>
+        <input type="number" id="st3-marks" min="0" max="40" required>
+
+        <label for="assignments">Number of Assignments (max 5):</label>
+        <input type="number" id="assignments" min="0" max="5" required>
+
+        <label for="quizzes">Number of Quizzes (max 5):</label>
+        <input type="number" id="quizzes" min="0" max="5" required>
+
+        <label for="attendance">Attendance Percentage:</label>
+        <input type="number" id="attendance" min="0" max="100" required>
+
+        <button type="submit">Calculate Marks</button>
+      </form>
+      <div id="summary" class="hidden">
+        <h3>Summary</h3>
+        <p id="st-summary"></p>
+        <p id="assignments-summary"></p>
+        <p id="quizzes-summary"></p>
+        <p id="attendance-summary"></p>
+        <p id="total-summary"></p>
+        <button id="manage-subject">Manage Subject</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2024 Piyush Gangwar. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -18,7 +18,7 @@ nextStepButton.addEventListener('click', async () => {
     return;
   }
 
-  const userId = auth.currentUser.uid; // Get the current user's ID
+  
   const userRef = doc(db, "users", userId);
 
   // Save the number of subjects to Firestore

@@ -19,7 +19,13 @@ nextStepButton.addEventListener('click', async () => {
     return;
   }
 
-  const userId = auth.currentUser .uid; // Get the current user's ID
+  // Get the current user's ID
+  const userId = auth.currentUser  ? auth.currentUser .uid : null; 
+  if (!userId) {
+    alert("User  not authenticated. Please log in.");
+    return;
+  }
+
   const userRef = doc(db, "users", userId); // Create a reference to the user's document
 
   try {
@@ -54,7 +60,13 @@ generateIconsButton.addEventListener('click', async () => {
     return;
   }
 
-  const userId = auth.currentUser .uid; // Get the current user's ID
+  // Get the current user's ID
+  const userId = auth.currentUser  ? auth.currentUser .uid : null; 
+  if (!userId) {
+    alert("User  not authenticated. Please log in.");
+    return;
+  }
+
   const userRef = doc(db, "users", userId); // Create a reference to the user's document
 
   try {

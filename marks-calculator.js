@@ -1,6 +1,6 @@
-import { auth } from './firebase-config.js'; // Import auth from your Firebase config
-import { db } from './firebase-config.js'; // Import db from your Firebase config
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"; // Import Firestore functions
+import { auth, db } from './firebase-config.js'; // Import auth and db from your Firebase config
+import { doc, setDoc, collection } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"; // Import Firestore functions
+
 const numSubjectsInput = document.getElementById('num-subjects');
 const nextStepButton = document.getElementById('next-step');
 const subjectsSection = document.getElementById('subjects-section');
@@ -19,25 +19,30 @@ nextStepButton.addEventListener('click', async () => {
     return;
   }
 
-  
-  const userRef = doc(db, "users", userId);
+  const userId = auth.currentUser .uid; // Get the current user's ID
+  const userRef = doc(db, "users", userId); // Create a reference to the user's document
 
-  // Save the number of subjects to Firestore
-  await setDoc(userRef, {
-    numSubjects: numSubjects
-  }, { merge: true });
+  try {
+    // Save the number of subjects to Firestore
+    await setDoc(userRef, {
+      numSubjects: numSubjects
+    }, { merge: true });
 
-  // Create inputs for subject names
-  subjectInputsContainer.innerHTML = '';
-  for (let i = 0; i < numSubjects; i++) {
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = `Subject ${i + 1} Name`;
-    input.required = true;
-    subjectInputsContainer.appendChild(input);
+    // Create inputs for subject names
+    subjectInputsContainer.innerHTML = '';
+    for (let i = 0; i < numSubjects; i++) {
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = `Subject ${i + 1} Name`;
+      input.required = true;
+      subjectInputsContainer.appendChild(input);
+    }
+
+    subjectsSection.classList.remove('hidden');
+  } catch (error) {
+    console.error("Error saving number of subjects:", error);
+    alert("Failed to save number of subjects. Please try again.");
   }
-
-  subjectsSection.classList.remove('hidden');
 });
 
 // Step 2: Generate Subject Icons and Save Subject Names to Firestore
@@ -49,30 +54,35 @@ generateIconsButton.addEventListener('click', async () => {
     return;
   }
 
-  const userId = auth.currentUser.uid; // Get the current user's ID
-  const userRef = doc(db, "users", userId);
+  const userId = auth.currentUser .uid; // Get the current user's ID
+  const userRef = doc(db, "users", userId); // Create a reference to the user's document
 
-  // Save the subjects to Firestore (each subject as a document in a subcollection)
-  const subjectsRef = collection(userRef, "subjects");
-  for (const subject of subjects) {
-    const subjectRef = doc(subjectsRef); // Auto-generate document ID
-    await setDoc(subjectRef, { name: subject }); // Save the subject name
-  }
+  try {
+    // Save the subjects to Firestore (each subject as a document in a subcollection)
+    const subjectsRef = collection(userRef, "subjects");
+    for (const subject of subjects) {
+      const subjectRef = doc(subjectsRef); // Auto-generate document ID
+      await setDoc(subjectRef, { name: subject }); // Save the subject name
+    }
 
-  // Create icons for subjects
-  iconsContainer.innerHTML = '';
-  subjects.forEach(subject => {
-    const div = document.createElement('div');
-    div.className = 'subject-icon';
-    div.innerHTML = `
-      <img src="book-icon.png" alt="${subject}" />
-      <span>${subject}</span>
-    `;
-    div.addEventListener('click', () => {
-      window.location.href = `third-page.html?subject=${encodeURIComponent(subject)}`;
+    // Create icons for subjects
+    iconsContainer.innerHTML = '';
+    subjects.forEach(subject => {
+      const div = document.createElement('div');
+      div.className = 'subject-icon';
+      div.innerHTML = `
+        <img src="book-icon.png" alt="${subject}" />
+        <span>${subject}</span>
+      `;
+      div.addEventListener('click', () => {
+        window.location.href = `third-page.html?subject=${encodeURIComponent(subject)}`;
+      });
+      iconsContainer.appendChild(div);
     });
-    iconsContainer.appendChild(div);
-  });
 
-  subjectsIconsSection.classList.remove('hidden');
+    subjectsIconsSection.classList.remove('hidden');
+  } catch (error) {
+    console.error("Error saving subjects:", error);
+    alert("Failed to save subjects. Please try again.");
+  }
 });

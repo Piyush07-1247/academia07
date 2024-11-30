@@ -1,3 +1,5 @@
+import { auth } from 'firebase-config.js'; // Import auth from firebase-config.js
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"; // Make sure to import Firestore functions as well
 const numSubjectsInput = document.getElementById('num-subjects');
 const nextStepButton = document.getElementById('next-step');
 const subjectsSection = document.getElementById('subjects-section');

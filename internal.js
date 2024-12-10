@@ -26,7 +26,6 @@ marksForm.addEventListener('submit', (event) => {
 
   // Total marks
   const total = stTotal + assignmentsTotal + quizzesTotal + attendanceMarks;
-
   // Open a new window and display results
   const resultPage = window.open('', '_blank');
   resultPage.document.write(`
@@ -36,41 +35,22 @@ marksForm.addEventListener('submit', (event) => {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Internal Marks Results</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          padding: 20px;
-          background-color: #f9f9f9;
-          color: #333;
-          text-align: center;
-        }
-        .summary {
-          max-width: 600px;
-          margin: 0 auto;
-          background: #fff;
-          padding: 20px;
-          border-radius: 10px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-          color: #007BFF;
-        }
-        p {
-          margin: 10px 0;
-        }
-      </style>
+      <link rel="stylesheet" href="internal.css">
     </head>
     <body>
-      <div class="summary">
+      <div class="calculator-container">
         <h2>Results</h2>
         <p><strong>Best 2 ST Marks Total:</strong> ${stTotal.toFixed(2)} (out of 15)</p>
         <p><strong>Assignments Marks:</strong> ${assignmentsTotal} (out of 5)</p>
         <p><strong>Quizzes Marks:</strong> ${quizzesTotal} (out of 5)</p>
         <p><strong>Attendance Marks:</strong> ${attendanceMarks} (out of 5)</p>
         <p><strong>Total Marks:</strong> ${total.toFixed(2)} (out of 30)</p>
+        <button onclick="window.history.back()">Go Back</button>
       </div>
     </body>
     </html>
   `);
   resultPage.document.close();
 });
+
+  

@@ -5,16 +5,22 @@ html, body {
 }
 
 body {
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  background-image: url('image.jpg'); /* Path to your background image */
-  background-size: cover; /* This ensures the background covers the entire viewport */
-  background-position: center center; /* Ensures the background image is centered */
-  background-attachment: fixed; /* Optional: Keeps the background fixed while scrolling */
+    margin: 0;
+    height: 100vh;
+    background: url('image.jpg');
+    animation: moveClouds 30s linear infinite;
 }
+
+@keyframes moveClouds {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+
 
 /* Main content area */
 main {

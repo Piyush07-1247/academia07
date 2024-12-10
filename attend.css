@@ -1,0 +1,272 @@
+/* General Styles */
+body {
+    margin: 0;
+    height: 100vh;
+    animation: changeBackground 10s infinite alternate;
+    background-size: cover;
+    background-position: center;
+}
+
+@keyframes changeBackground {
+    0% {
+        background-image: url('https://picsum.photos/1920/1080?random=1');
+    }
+    50% {
+        background-image: url('https://picsum.photos/1920/1080?random=2');
+    }
+    100% {
+        background-image: url('https://picsum.photos/1920/1080?random=3');
+    }
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+/* Smooth Fade-in Animation */
+body {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+h1, h2 {
+    color: #222;
+    animation: slideDown 1.2s ease-in-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+    transition: color 0.3s ease;
+}
+
+label:hover {
+    color: #007bff;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+}
+
+input:focus {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #0056b3, #007bff);
+    transform: scale(1.05);
+}
+
+/* Container Styles */
+#formContainer, #resultContainer, #predictionContainer {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Prediction Result Box */
+#predictionResult {
+    padding: 20px;
+    background-color: rgba(249, 249, 249, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeUp 1.2s ease;
+}
+
+#resultContainer p, #predictionResult p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Button Animations */
+button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button:first-of-type {
+    margin-top: 0;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Icon Animation */
+.social-icons .icon {
+    text-decoration: none;
+    color: #333;
+    font-size: 30px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons .instagram:hover {
+    color: #E1306C; /* Instagram color */
+    transform: scale(1.2);
+}
+
+.social-icons .whatsapp:hover {
+    color: #25D366; /* WhatsApp color */
+    transform: scale(1.2);
+}
+
+
+
+@keyframes popIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+canvas {
+    width: 100%;
+    height: 300px; /* Adjust the height as necessary */
+}
+
+/* Header Styles */
+.header-container {
+    position: relative;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.background-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: auto;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.logo {
+    display: block;
+    margin: 20px auto;
+    width: 150px;
+    height: auto;
+}
+
+/* Footer Styles */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icons .icon:hover {
+    transform: rotate(10deg) scale(1.2);
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+}

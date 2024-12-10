@@ -1,0 +1,120 @@
+/* General Styling */
+body {
+    margin: 0;
+    height: 100vh;
+    animation: changeBackground 10s infinite alternate;
+    background-size: cover;
+    background-position: center;
+}
+
+@keyframes changeBackground {
+    0% {
+        background-image: url('https://picsum.photos/1920/1080?random=1');
+    }
+    50% {
+        background-image: url('https://picsum.photos/1920/1080?random=2');
+    }
+    100% {
+        background-image: url('https://picsum.photos/1920/1080?random=3');
+    }
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: url('https://via.placeholder.com/1920x1080/87CEEB/FFFFFF?text=Background+Image') fixed;
+    background-size: cover;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+body {
+  margin: 0; /* Remove any default margin */
+  height: 100vh; /* Ensure the body takes up full height of the viewport */
+  background-image: url('image.jpg'); /* Path to your background image */
+  background-size: cover; /* This ensures the background covers the entire viewport */
+  background-position: center center; /* Ensures the background image is centered */
+  background-attachment: fixed; /* Optional: Keeps the background fixed while scrolling */
+}
+
+
+/* Calculator Container */
+.calculator-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007BFF;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+form button {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+#summary {
+  margin-top: 20px;
+  text-align: left;
+}
+
+#summary.hidden {
+  display: none;
+}
+
+/* Media Query */
+@media (max-width: 600px) {
+  .calculator-container {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  form input, form button {
+    font-size: 1rem;
+    padding: 8px;
+  }
+}

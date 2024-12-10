@@ -1,0 +1,163 @@
+/* Global reset and layout for full height */
+html, body {
+  height: 100%; /* Ensure the page takes up the full height */
+  margin: 0; /* Remove default margin */
+}
+
+body {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  background-image: url('image.jpg'); /* Path to your background image */
+  background-size: cover; /* This ensures the background covers the entire viewport */
+  background-position: center center; /* Ensures the background image is centered */
+  background-attachment: fixed; /* Optional: Keeps the background fixed while scrolling */
+}
+
+/* Main content area */
+main {
+  flex: 1; /* This ensures the main content takes up all available space */
+  padding: 20px; /* Add some padding for content */
+}
+
+/* Header */
+header {
+  background-color: #007BFF;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.header-container h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.auth-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.auth-buttons button {
+  background-color: white;
+  color: #007BFF;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.auth-buttons button:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+/* Card Layout */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+  gap: 15px;
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.card .card-detail {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover .card-detail {
+  opacity: 1;
+}
+
+.card.disabled {
+  cursor: not-allowed;
+  background-color: #f0f0f0;
+  color: #aaa;
+}
+
+/* Footer */
+footer {
+  background-color: grey; /* Dark background color */
+  color: red; /* White text */
+  padding: 20px 0; /* Padding around the footer */
+  text-align: center; /* Center the text */
+  width: 100%; /* Ensure the footer stretches across the page */
+  position: relative; /* Ensures the footer behaves normally in the layout */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.social-media {
+  display: flex;
+  gap: 15px; /* Space between social media icons */
+}
+
+.social-icon {
+  text-decoration: none; /* Remove underline from links */
+  color: white; /* White text color */
+  font-size: 18px; /* Font size for the social media icons */
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #1e90ff; /* Change color when hovered */
+}
+
+.copyright {
+  font-size: 14px;
+  color: #bbb; /* Lighter color for copyright text */
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .social-media {
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+}

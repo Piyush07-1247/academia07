@@ -8,7 +8,7 @@ body {
     margin: 0;
     height: 100vh;
     background: url('image.jpg');
-    animation: moveClouds 30s linear infinite;
+    animation: moveClouds 17s linear infinite;
 }
 
 @keyframes moveClouds {

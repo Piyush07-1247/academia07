@@ -17,6 +17,9 @@ function navigateTo(page) {
     case 'cgpa':
       window.location.href = 'cgpa.html'; // Ensure page exists
       break;
+      case 'progress':
+      window.location.href = 'progress.html'; // Ensure page exists
+      break;
     default:
       alert('Coming Soon!');
   }

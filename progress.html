@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracker</title>
+    <link rel="stylesheet" href="progress.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Subject Progress Tracker</h1>
+        <div id="subjectForm">
+            <h2>Add Subjects</h2>
+            <input type="number" id="subjectCount" placeholder="Number of subjects" min="1">
+            <button id="generateSubjects">Generate Subject Inputs</button>
+        </div>
+        <div id="subjectInputs"></div>
+        <div id="subjectCards" class="card-container"></div>
+    </div>
+
+    <!-- Subject Details Page (Hidden Initially) -->
+    <div id="subjectDetails" class="hidden">
+        <h2 id="subjectTitle"></h2>
+        <div>
+            <label>Assignments Done (out of 5):</label>
+            <input type="number" id="assignmentsDone" min="0" max="5">
+            <div id="assignmentProgress" class="progress-bar"></div>
+        </div>
+        <div>
+            <label>Chapters Completed (out of 5):</label>
+            <input type="number" id="chaptersDone" min="0" max="5">
+            <div id="chapterProgress" class="progress-bar"></div>
+        </div>
+        <div>
+            <label>Google Drive Notes Link:</label>
+            <input type="text" id="notesLink">
+            <button id="saveNotes">Save Notes</button>
+        </div>
+        <a href="#" id="notesButton" class="hidden" target="_blank">Open Notes</a>
+        <button id="backToSubjects">Back to Subjects</button>
+    </div>
+
+    <script src="progress.js"></script>
+</body>
+</html>

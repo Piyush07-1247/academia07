@@ -79,6 +79,7 @@ const devToolsCheck = setInterval(() => {
     });
     console.log(element); // This triggers the getter when DevTools is open
 }, 1000);
+
 // Obfuscate console (Prevent users from using the browser console easily)
 (function () {
     const originalConsole = console;
@@ -103,21 +104,23 @@ const devToolsCheck = setInterval(() => {
     };
     setInterval(checkDebugger, 1000);
 })();
- // Blocking the right-click context menu in DevTools (disabling element inspection)
-    document.addEventListener('contextmenu', (e) => {
-        if (e.target === document) {
-            e.preventDefault();
-            alert('Right-click is disabled!');
-        }
-    });
-})();
- // Block access to the "Elements" tab in DevTools (Prevent DOM inspection)
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
-            alert('Access to Elements tab is restricted!');
-            e.preventDefault();
-        }
-    });
+
+// Blocking the right-click context menu in DevTools (disabling element inspection)
+document.addEventListener('contextmenu', (e) => {
+    if (e.target === document) {
+        e.preventDefault();
+        alert('Right-click is disabled!');
+    }
+});
+
+// Block access to the "Elements" tab in DevTools (Prevent DOM inspection)
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+        alert('Access to Elements tab is restricted!');
+        e.preventDefault();
+    }
+});
+
 // Disable access to sources and elements in the DevTools
 (function () {
     // Block access to DevTools Source tab (Prevent inspecting source code)
@@ -131,14 +134,17 @@ const devToolsCheck = setInterval(() => {
         },
         writable: false
     });
-const devToolsCheck = setInterval(() => {
-    const element = new Image();
-    Object.defineProperty(element, 'id', {
-        get: () => {
-            console.warn('Developer tools detected!');
-            // Uncomment this to take further action (e.g., redirect):
-            // window.location.href = "about:blank";
-        }
-    });
-    console.log(element); // This shouldn't trigger alerts unless DevTools is explicitly open.
-}, 1000);
+
+    // Block access to DevTools Sources tab
+    const devToolsCheck = setInterval(() => {
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: () => {
+                console.warn('Developer tools detected!');
+                // Uncomment this to take further action (e.g., redirect):
+                // window.location.href = "about:blank";
+            }
+        });
+        console.log(element); // This shouldn't trigger alerts unless DevTools is explicitly open.
+    }, 1000);
+})();

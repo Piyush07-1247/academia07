@@ -92,6 +92,18 @@ document.addEventListener('copy', (e) => {
     alert('Copying is not allowed!');
     e.preventDefault();
 });
+(function() {
+    const originalConsole = console;
+    Object.defineProperty(window, 'console', {
+        get: function() {
+            alert('Access to console is restricted!');
+            return originalConsole;
+        },
+        set: function() {
+            alert('Modifying console is not allowed!');
+        }
+    });
+})();
 
 // CSS to prevent copying and inspect element
 const style = document.createElement('style');

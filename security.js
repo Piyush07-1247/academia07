@@ -38,8 +38,8 @@ document.addEventListener('keydown', function(e) {
     }, 1000);
 })();
 
-// Block access to the console
-(function() {
+// Block access to the console after the page has loaded
+window.addEventListener('load', function() {
     const originalConsole = console;
     Object.defineProperty(window, 'console', {
         get: function() {
@@ -50,7 +50,7 @@ document.addEventListener('keydown', function(e) {
             alert('Modifying console is not allowed!');
         }
     });
-})();
+});
 
 // Block access to the "Elements" and "Sources" tabs (DevTools)
 (function() {

@@ -15,124 +15,146 @@ document.addEventListener('mousedown', (e) => {
     }
 });
 
-// Block opening DevTools using keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-    // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
-    if (e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-        (e.ctrlKey && e.shiftKey && e.key === 'J') || 
-        (e.ctrlKey && e.key === 'U')) {
-        alert('Developer Tools are disabled!');
-        e.preventDefault();
-        return false;
-    }
-});
-
-// Detect when DevTools is opened by checking window size
-(function() {
+// Detect DevTools being opened using window size change detection
+(function () {
     const devToolsDetection = setInterval(() => {
+        // Check if the window's outer width/height is significantly larger than inner width/height
         if (window.outerWidth - window.innerWidth > 100 || window.outerHeight - window.innerHeight > 100) {
-            alert('Developer Tools detected!');
+            alert('Developer tools are not allowed!');
             window.location.href = "about:blank"; // Redirect to blank page or block site entirely
         }
     }, 1000);
 })();
 
-// Block access to the console after the page has loaded
-window.addEventListener('load', function() {
+// Detect DevTools opening by checking for debugger keyword
+(function () {
+    const checkDebugger = () => {
+        if (Function('debugger')()) {
+            alert('Debugging is not allowed!');
+            window.location.href = "about:blank"; // Redirect to blank page or block site entirely
+        }
+    };
+    setInterval(checkDebugger, 1000);
+})();
+
+// Disable access to the console (block console actions)
+(function () {
     const originalConsole = console;
     Object.defineProperty(window, 'console', {
-        get: function() {
+        get: function () {
             alert('Access to console is restricted!');
             return originalConsole;
         },
-        set: function() {
+        set: function () {
             alert('Modifying console is not allowed!');
         }
     });
-});
-
-// Block access to the "Elements" and "Sources" tabs (DevTools)
-(function() {
-    // Override the `open` function to prevent opening DevTools-related URLs
-    const originalOpen = window.open;
-    window.open = function(url) {
-        if (url.includes('devtools://')) {
-            alert('Access to Developer Tools is restricted!');
-            return null; // Block the open attempt
-        }
-        return originalOpen.apply(window, arguments);
-    };
-
-    // Block access to the Elements tab using the Image() trick (check if the `id` property is accessed)
-    const devToolsCheck = setInterval(() => {
-        const element = new Image();
-        Object.defineProperty(element, 'id', {
-            get: function() {
-                alert('Developer Tools are open!');
-                window.location.href = "about:blank"; // Block site if DevTools is open
-            }
-        });
-        console.log(element); // If DevTools is open, this will trigger the alert
-    }, 1000);
 })();
 
-// Block drag, copy, and right-click actions
-document.addEventListener('dragstart', (e) => e.preventDefault());
-document.addEventListener('mousedown', (e) => {
-    if (e.button === 2) { // Right-click
+// Detect key combinations for opening DevTools (F12, Ctrl+Shift+I, etc.)
+document.addEventListener('keydown', (e) => {
+    if (
+        (e.ctrlKey && e.shiftKey && e.code === 'KeyI') || // Ctrl+Shift+I
+        (e.ctrlKey && e.shiftKey && e.code === 'KeyJ') || // Ctrl+Shift+J
+        (e.ctrlKey && e.code === 'KeyU') ||              // Ctrl+U
+        e.code === 'F12'                                 // F12
+    ) {
+        e.preventDefault();
+        alert('Developer tools are not allowed!');
+        return false;
+    }
+});
+
+// Disable context menu, making it harder to inspect elements via right-click
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+// Detect if DevTools is open based on console object detection
+const devToolsCheck = setInterval(() => {
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+        get: () => {
+            alert('Developer tools are open!');
+            window.location.href = "about:blank"; // Stop the website if DevTools is detected
+        }
+    });
+    console.log(element); // This triggers the getter when DevTools is open
+}, 1000);
+
+// Obfuscate console (Prevent users from using the browser console easily)
+(function () {
+    const originalConsole = console;
+    Object.defineProperty(window, 'console', {
+        get: function () {
+            alert('Access to console is restricted!');
+            return originalConsole;
+        },
+        set: function () {
+            alert('Modifying console is not allowed!');
+        }
+    });
+})();
+
+// Detect and block JavaScript debugging
+(function blockDebugger() {
+    const checkDebugger = () => {
+        if (Function('debugger')()) {
+            alert('Debugging is not allowed!');
+            window.location.href = "about:blank";
+        }
+    };
+    setInterval(checkDebugger, 1000);
+})();
+
+// Blocking the right-click context menu in DevTools (disabling element inspection)
+document.addEventListener('contextmenu', (e) => {
+    if (e.target === document) {
+        e.preventDefault();
         alert('Right-click is disabled!');
+    }
+});
+
+// Block access to the "Elements" tab in DevTools (Prevent DOM inspection)
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+        alert('Access to Elements tab is restricted!');
         e.preventDefault();
     }
 });
 
-// Prevent DOM content from being selected or copied
-document.addEventListener('selectstart', (e) => e.preventDefault());
-document.addEventListener('copy', (e) => {
-    alert('Copying is not allowed!');
-    e.preventDefault();
-});
-(function() {
-    const originalConsole = console;
-    Object.defineProperty(window, 'console', {
-        get: function() {
-            alert('Access to console is restricted!');
-            return originalConsole;
+// Disable access to sources and elements in the DevTools
+(function () {
+    // Block access to DevTools Source tab (Prevent inspecting source code)
+    Object.defineProperty(window, 'open', {
+        value: function () {
+            if (arguments[0].includes('devtools')) {
+                alert('Access to Developer Tools is restricted!');
+                return null;
+            }
+            return open.apply(window, arguments);
         },
-        set: function() {
-            alert('Modifying console is not allowed!');
+        writable: false
+    });
+
+    // Block access to DevTools Sources tab
+    const devToolsCheck = setInterval(() => {
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: () => {
+                console.warn('Developer tools detected!');
+                // Uncomment this to take further action (e.g., redirect):
+                // window.location.href = "about:blank";
+            }
+        });
+        console.log(element); // This shouldn't trigger alerts unless DevTools is explicitly open.
+    }, 1000);
+})();
+const devToolsCheck = setInterval(() => {
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+        get: () => {
+            console.warn('Developer tools detected!');
+            // Uncomment this to take further action (e.g., redirect):
+            // window.location.href = "about:blank";
         }
     });
-})();
-
-// CSS to prevent copying and inspect element
-const style = document.createElement('style');
-style.innerHTML = `
-    /* Prevent text selection */
-    body {
-        user-select: none !important;
-    }
-    /* Disable pointer events for all elements except critical UI elements */
-    * {
-        pointer-events: auto;
-    }
-    /* Overlay to block right-click on all elements */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.5); /* Transparent overlay */
-        pointer-events: none; /* Allow clicks through the overlay */
-        z-index: 9999;
-    }
-    /* Prevent visibility of hidden text (if exposed by inspecting) */
-    .hidden-text {
-        visibility: hidden !important;
-        display: none !important;
-    }
-`;
-
-document.head.appendChild(style);
+    console.log(element); // This shouldn't trigger alerts unless DevTools is explicitly open.

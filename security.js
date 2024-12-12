@@ -103,6 +103,34 @@ const devToolsCheck = setInterval(() => {
     };
     setInterval(checkDebugger, 1000);
 })();
+ // Blocking the right-click context menu in DevTools (disabling element inspection)
+    document.addEventListener('contextmenu', (e) => {
+        if (e.target === document) {
+            e.preventDefault();
+            alert('Right-click is disabled!');
+        }
+    });
+})();
+ // Block access to the "Elements" tab in DevTools (Prevent DOM inspection)
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+            alert('Access to Elements tab is restricted!');
+            e.preventDefault();
+        }
+    });
+// Disable access to sources and elements in the DevTools
+(function () {
+    // Block access to DevTools Source tab (Prevent inspecting source code)
+    Object.defineProperty(window, 'open', {
+        value: function () {
+            if (arguments[0].includes('devtools')) {
+                alert('Access to Developer Tools is restricted!');
+                return null;
+            }
+            return open.apply(window, arguments);
+        },
+        writable: false
+    });
 const devToolsCheck = setInterval(() => {
     const element = new Image();
     Object.defineProperty(element, 'id', {

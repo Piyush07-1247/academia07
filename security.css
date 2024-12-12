@@ -3,10 +3,45 @@ body {
     user-select: none !important;
 }
 
-/* Disable pointer events for all elements */
+/* Disable pointer events for all elements except critical UI elements */
 * {
-    pointer-events: auto !important;
+    pointer-events: auto; /* Allow interactions */
 }
+
+/* Disable right-click on specific elements */
+.watermark {
+    pointer-events: none; /* Disable interactions for watermark or overlay elements */
+}
+
+/* Overlay to prevent screenshots */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.01); /* Almost transparent overlay */
+    pointer-events: none; /* Allow clicks through it */
+    z-index: 9999;
+}
+
+/* Prevent text highlighting on the page */
+::-moz-selection {
+    background: transparent;
+}
+
+::selection {
+    background: transparent;
+}
+
+/* Disable user dragging of content */
+img, a, .no-drag {
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    user-drag: none;
+}
+
 
 /* Hide content when printing */
 @media print {
@@ -25,17 +60,4 @@ img, a {
 .hidden-text {
     visibility: hidden !important;
     display: none !important;
-}
-
-/* Overlay to prevent screenshots */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.01); /* Transparent overlay */
-    pointer-events: none;
-    z-index: 9999;
 }

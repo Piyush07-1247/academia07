@@ -151,10 +151,14 @@ document.addEventListener('keydown', function (e) {
 const devToolsCheck = setInterval(() => {
     const element = new Image();
     Object.defineProperty(element, 'id', {
-        get: () => {
+        get: function() {
             console.warn('Developer tools detected!');
-            // Uncomment this to take further action (e.g., redirect):
-            // window.location.href = "about:blank";
+            // Redirect the user to a blank page when DevTools is detected
+            window.location.href = "about:blank";  // This line will block the website by redirecting to a blank page
+            clearInterval(devToolsCheck);  // Stop checking once DevTools is detected
         }
     });
-    console.log(element); // This shouldn't trigger alerts unless DevTools is explicitly open.
+
+    // Trigger the getter for id, which will be accessed when DevTools is open
+    console.log(element); // This line will trigger the getter when DevTools is open
+}, 1000);

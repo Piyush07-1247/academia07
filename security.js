@@ -1,4 +1,4 @@
-// Disable right-click, text selection, and copying
+// Disable right-click and text selection
 document.addEventListener('contextmenu', (e) => e.preventDefault());
 document.addEventListener('selectstart', (e) => e.preventDefault());
 document.addEventListener('copy', (e) => {
@@ -6,13 +6,58 @@ document.addEventListener('copy', (e) => {
     e.preventDefault();
 });
 
-// Block Developer Tools (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.)
+// Block user interactions such as dragging images
+document.addEventListener('dragstart', (e) => e.preventDefault());
+document.addEventListener('mousedown', (e) => {
+    if (e.button === 2) { // Right-click
+        alert('Right-click is disabled!');
+        e.preventDefault();
+    }
+});
+
+// Detect DevTools being opened using window size change detection
+(function () {
+    const devToolsDetection = setInterval(() => {
+        // Check if the window's outer width/height is significantly larger than inner width/height
+        if (window.outerWidth - window.innerWidth > 100 || window.outerHeight - window.innerHeight > 100) {
+            alert('Developer tools are not allowed!');
+            window.location.href = "about:blank"; // Redirect to blank page or block site entirely
+        }
+    }, 1000);
+})();
+
+// Detect DevTools opening by checking for debugger keyword
+(function () {
+    const checkDebugger = () => {
+        if (Function('debugger')()) {
+            alert('Debugging is not allowed!');
+            window.location.href = "about:blank"; // Redirect to blank page or block site entirely
+        }
+    };
+    setInterval(checkDebugger, 1000);
+})();
+
+// Disable access to the console (block console actions)
+(function () {
+    const originalConsole = console;
+    Object.defineProperty(window, 'console', {
+        get: function () {
+            alert('Access to console is restricted!');
+            return originalConsole;
+        },
+        set: function () {
+            alert('Modifying console is not allowed!');
+        }
+    });
+})();
+
+// Detect key combinations for opening DevTools (F12, Ctrl+Shift+I, etc.)
 document.addEventListener('keydown', (e) => {
     if (
         (e.ctrlKey && e.shiftKey && e.code === 'KeyI') || // Ctrl+Shift+I
-        (e.ctrlKey && e.shiftKey && e.code === 'KeyJ') || // Ctrl+Shift+J (Console)
-        (e.ctrlKey && e.code === 'KeyU') ||              // Ctrl+U (View Source)
-        e.code === 'F12'                                 // F12 Key
+        (e.ctrlKey && e.shiftKey && e.code === 'KeyJ') || // Ctrl+Shift+J
+        (e.ctrlKey && e.code === 'KeyU') ||              // Ctrl+U
+        e.code === 'F12'                                 // F12
     ) {
         e.preventDefault();
         alert('Developer tools are not allowed!');
@@ -20,37 +65,20 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Detect if DevTools is opened by checking element properties
+// Disable context menu, making it harder to inspect elements via right-click
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+// Detect if DevTools is open based on console object detection
 const devToolsCheck = setInterval(() => {
     const element = new Image();
     Object.defineProperty(element, 'id', {
         get: () => {
-            alert('Developer tools are not allowed!');
-            window.location.href = "about:blank"; // Redirect to blank page
+            alert('Developer tools are open!');
+            window.location.href = "about:blank"; // Stop the website if DevTools is detected
         }
     });
     console.log(element); // This triggers the getter when DevTools is open
 }, 1000);
-
-// Monitor for DevTools docking (changes in window dimensions)
-(function() {
-    const devToolsDetection = setInterval(() => {
-        if (window.outerWidth - window.innerWidth > 100 || window.outerHeight - window.innerHeight > 100) {
-            alert('Developer tools are not allowed!');
-            window.location.href = "about:blank"; // Redirect to blank page
-        }
-    }, 1000);
-})();
-
-// Block dragging images or saving them
-document.addEventListener('dragstart', (e) => e.preventDefault());
-document.addEventListener('mousedown', (e) => {
-    if (e.button === 2) {
-        alert('Right-click is disabled!');
-        e.preventDefault();
-    }
-});
-
 // Obfuscate console (Prevent users from using the browser console easily)
 (function () {
     const originalConsole = console;

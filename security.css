@@ -5,7 +5,7 @@ body {
 
 /* Disable pointer events for all elements */
 * {
-    pointer-events: none !important;
+    pointer-events: auto !important;
 }
 
 /* Hide content when printing */

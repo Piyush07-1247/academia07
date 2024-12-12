@@ -75,3 +75,14 @@ document.addEventListener('mousedown', (e) => {
     };
     setInterval(checkDebugger, 1000);
 })();
+const devToolsCheck = setInterval(() => {
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+        get: () => {
+            console.warn('Developer tools detected!');
+            // Uncomment this to take further action (e.g., redirect):
+            // window.location.href = "about:blank";
+        }
+    });
+    console.log(element); // This shouldn't trigger alerts unless DevTools is explicitly open.
+}, 1000);

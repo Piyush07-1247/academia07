@@ -1,10 +1,10 @@
 // Import Firebase SDKs
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { 
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, 
-    onAuthStateChanged, GoogleAuthProvider, signInWithPopup 
-} from "firebase/auth";
-import { getDatabase, ref, set, get, child } from "firebase/database";
+    onAuthStateChanged, GoogleAuthProvider, signInWithPopup
+} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 // Firebase Configuration
 const firebaseConfig = {

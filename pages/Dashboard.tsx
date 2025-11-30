@@ -258,7 +258,7 @@ const Dashboard = () => {
                   <div className="h-full flex flex-col items-center justify-center text-gray-500">
                       <BarChart3 className="mb-2 opacity-20" size={48} />
                       <p>No history found.</p>
-                      <p className="text-xs mt-1">Go to Grade Calc -> CGPA to enter past semesters.</p>
+                    <p className="text-xs mt-1">Go to Grade Calc → CGPA to enter past semesters.</p>
                   </div>
               )}
             </div>
